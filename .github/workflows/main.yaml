@@ -1,6 +1,7 @@
-name: Build .NET SDK
+name: Build .NET SDK for RISC-V
 
-on: [workflow_dispatch]
+#on: [workflow_dispatch]
+on: push
 
 jobs:
   run:
@@ -11,9 +12,6 @@ jobs:
         PACKAGESDIR: ${{ github.workspace }}/packages
         DOWNLOADDIR: ${{ github.workspace }}/downloads
         OUTPUTDIR: ${{ github.workspace }}/output
-        #RUNTIME_VERSION: 8.0.1-servicing.23580.1
-        #SDK_VERSION: 8.0.101-servicing.23580.21
-        #ASPNETCORE_VERSION: 8.0.1-servicing.23580.8
         # Taken from the finished dialog for 9.0 preview 3 installer on x64
         SDK_VERSION: 9.0.100-preview.3.24204.13
         RUNTIME_VERSION: 9.0.0-preview.3.24172.9
@@ -27,8 +25,8 @@ jobs:
       run: |
         git clone --depth 1 -b release/9.0-preview3 https://github.com/dotnet/runtime
         git clone --depth 1 -b release/9.0-preview3 https://github.com/dotnet/aspnetcore --recurse-submodules
-        git clone --depth 1 -b 9.0.1xx-preview3 https://github.com/dotnet/sdk
-        git clone --depth 1 -b 9.0.1xx-preview3 https://github.com/dotnet/installer
+        git clone --depth 1 -b release/9.0.1xx-preview3 https://github.com/dotnet/sdk
+        git clone --depth 1 -b release/9.0.1xx-preview3 https://github.com/dotnet/installer
 
     - name: Update Node.js
       run: |
